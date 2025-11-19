@@ -161,6 +161,11 @@ int main(int argc,char** argv){
 	
 	/* OPTION 1 = directly access events at /dev/input/eventX */
 
+	if(geteuid()!=0){
+		puts("must run as root or sudo or doas");
+		return 0;
+	}
+
 	DIR* dir=opendir(DIRECTORY); //should be readable by default for all users on all linux distros
 	if(dir==NULL){
 		perror("opendir failed");
